@@ -10,9 +10,13 @@
     <Company>Arsslensoft</Company>
     <PackageId>Seq.App.BugReporter.AzureDevOps</PackageId>
     <IsPackable>true</IsPackable>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.205.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.205.1" />
     <PackageReference Include="Seq.Apps" Version="2023.4.0" />
   </ItemGroup>
 
