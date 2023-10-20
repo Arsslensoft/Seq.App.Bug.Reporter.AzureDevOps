@@ -86,13 +86,13 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
     [SeqAppSetting(
         DisplayName = "Bug title format",
         IsOptional = true,
-        HelpText = $"Provides the title format of the bug. List of parameters that can be used are ({ParameterConstants.EventLogLevel}, {ParameterConstants.EventMessage}, {ParameterConstants.EventId}, {ParameterConstants.EventTimestamp}), you can also use Seq event properties) If left empty, the bug title will be '[SEQ Bug Reporter/{{EventLogLevel}}] - {{EventMessage}}'.")]
+        HelpText = $"Provides the title format of the bug. List of parameters that can be used are ({ParameterConstants.EventLogLevel}, {ParameterConstants.EventMessage}, {ParameterConstants.EventId}, {ParameterConstants.EventTimestamp}), you can also use Seq event properties). If left empty, the bug title will be '[SEQ Bug Reporter/{{EventLogLevel}}] - {{EventMessage}}'.")]
     public string TitleFormat { get; set; }
 
     [SeqAppSetting(
         DisplayName = "Bug description format",
         IsOptional = true,
-        HelpText = $"Provides the description format of the bug. List of parameters that can be used are ({ParameterConstants.EventLogLevel}, {ParameterConstants.EventMessage}, {ParameterConstants.EventUrl}, {ParameterConstants.EventId}, {ParameterConstants.EventTimestamp}, {ParameterConstants.EventException}, {ParameterConstants.EventProperties}), you can also use Seq event properties) If left empty, the bug title will be '[SEQ Bug Reporter/{LogLevel}] - {Message}'.")]
+        HelpText = $"Provides the description format of the bug. List of parameters that can be used are ({ParameterConstants.EventLogLevel}, {ParameterConstants.EventMessage}, {ParameterConstants.EventUrl}, {ParameterConstants.EventId}, {ParameterConstants.EventTimestamp}, {ParameterConstants.EventException}, {ParameterConstants.EventProperties}), you can also use Seq event properties).")]
     public string DescriptionFormat { get; set; }
 
     [SeqAppSetting(
