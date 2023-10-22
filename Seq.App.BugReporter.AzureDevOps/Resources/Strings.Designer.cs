@@ -139,7 +139,7 @@ namespace Seq.App.BugReporter.AzureDevOps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UNSUPPORTED_PARAMETER.
+        ///   Looks up a localized string similar to (This parameter &lt;i&gt;{0}&lt;/i&gt; is not supported).
         /// </summary>
         internal static string UNSUPPORTED_PARAMETER {
             get {

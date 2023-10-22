@@ -14,11 +14,13 @@ namespace Seq.App.BugReporter.AzureDevOps.Formatters;
 public class ParameterizedSeqStringFormatter
 {
     private readonly Event<LogEventData> _event;
+    private readonly ILogger _logger;
 
 
-    public ParameterizedSeqStringFormatter(Event<LogEventData> @event)
+    public ParameterizedSeqStringFormatter(Event<LogEventData> @event, ILogger logger)
     {
         _event = @event;
+        _logger = logger;
     }
 
     public string? GetTitle(string? titleTemplate)
@@ -32,69 +34,69 @@ public class ParameterizedSeqStringFormatter
     {
         return FormatTemplate(string.IsNullOrEmpty(descriptionTemplate)
             ? Strings.DEFAULT_DESCRIPTION
-            : descriptionTemplate, baseUrl);
+            : descriptionTemplate, baseUrl, false);
     }
 
     public string? FormatTemplate(string template, string? baseUrl = null, bool isMinifiedTemplate = true)
     {
-        Log.BindMessageTemplate(template, _event.Data.Properties.Select(p => p.Value).ToArray(),
+        _logger.BindMessageTemplate(template, _event.Data?.Properties?.Select(p => p.Value).ToArray() ?? Array.Empty<object?>(),
             out var boundTemplate, out _);
 
         if (boundTemplate == null) return null;
 
-        var sb = new StringBuilder();
+        var messageBuilder = new StringBuilder();
         foreach (var tok in boundTemplate.Tokens)
         {
-            var tokenString = tok.ToString();
-
             if (tok is TextToken)
-                sb.Append(tok);
+                messageBuilder.Append(tok);
             else
-                FormatParameter(sb, tokenString, baseUrl, isMinifiedTemplate);
+                FormatParameter(messageBuilder, tok, baseUrl, isMinifiedTemplate);
         }
 
-        return sb.ToString();
+        return messageBuilder.ToString();
     }
 
-    private void FormatParameter(StringBuilder sb, string? tokenString, string? baseUrl, bool isMinifiedTemplate)
+    private void FormatParameter(StringBuilder messageBuilder, MessageTemplateToken token, string? baseUrl, bool isMinifiedTemplate)
     {
-        switch (tokenString)
+        if (token is not PropertyToken {PropertyName: { } propertyName}) return;
+
+        switch (propertyName)
         {
             case ParameterConstants.EventId:
-                sb.Append(_event.Id);
+                messageBuilder.Append(_event.Id);
                 break;
             case ParameterConstants.EventMessage when _event.Data != null:
-                sb.Append(_event.Data.RenderedMessage);
+                messageBuilder.Append(_event.Data.RenderedMessage);
                 break;
             case ParameterConstants.EventLogLevel when _event.Data != null:
-                sb.Append(_event.Data.Level);
+                messageBuilder.Append(_event.Data.Level);
                 break;
             case ParameterConstants.EventTimestamp when _event.Data != null:
-                sb.Append(_event.Data.LocalTimestamp.ToLocalTime());
+                messageBuilder.Append(_event.Data.LocalTimestamp.ToLocalTime());
                 break;
             case ParameterConstants.EventUrl when _event.Data != null && baseUrl != null && !isMinifiedTemplate:
-                sb.Append(GetSeqUrl(baseUrl));
+                messageBuilder.Append(GetSeqUrl(baseUrl));
                 break;
             case ParameterConstants.EventException when _event.Data?.Exception != null && !isMinifiedTemplate:
             {
-                sb.Append(
+                messageBuilder.Append(
                     $"<strong>{Strings.EXCEPTION}:</strong><p style=\"background-color: #921b3c; color: white; border-left: 8px solid #7b1e38;\">{_event.Data.Exception}</p>");
                 break;
             }
             case ParameterConstants.EventProperties when _event.Data != null && !isMinifiedTemplate:
             {
                 foreach (var m in _event.Data.Properties.Keys)
-                    sb.Append($"<strong>{m}</strong>: {_event.Data.Properties[m]} <br/>");
+                    messageBuilder.Append($"<strong>{m}</strong>: {_event.Data.Properties[m]} <br/>");
 
                 break;
             }
-            case not null when _event.Data?.Properties != null:
+            case not null when _event.Data?.Properties != null && _event.Data.Properties.ContainsKey(propertyName):
             {
-                sb.Append(_event.Data?.Properties[tokenString.Replace("{", "").Replace("}", "")]);
+                messageBuilder.Append(_event.Data?.Properties[propertyName]);
                 break;
             }
             default:
-                sb.Append("UNSUPPORTED_PARAMETER");
+                messageBuilder.Append(string.Format(Strings.UNSUPPORTED_PARAMETER, propertyName));
                 break;
         }
     }

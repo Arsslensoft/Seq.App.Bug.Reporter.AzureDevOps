@@ -50,7 +50,7 @@ public class AzureDevOpsBugReporterApp : AzureDevOpsReporterAppBase, ISubscribeT
         List<WorkItemReference> existingWorkItems)
     {
         var builder = new JsonPatchDocumentWorkItemBuilder();
-        var formatter = new ParameterizedSeqStringFormatter(evt);
+        var formatter = new ParameterizedSeqStringFormatter(evt, Log);
 
         var title = formatter.GetTitle(TitleFormat)?.TruncateWithEllipsis(255);
         if (title == null) throw new ArgumentNullException(nameof(title), Strings.FAILED_TO_GENERATE_TITLE);

@@ -139,7 +139,7 @@
     <value>Failed to generate bug description</value>
   </data>
   <data name="UNSUPPORTED_PARAMETER" xml:space="preserve">
-    <value>UNSUPPORTED_PARAMETER</value>
+    <value>(This parameter &lt;i&gt;{0}&lt;/i&gt; is not supported)</value>
   </data>
   <data name="FAILED_TO_GENERATE_TITLE" xml:space="preserve">
     <value>Failed to generate bug title</value>
