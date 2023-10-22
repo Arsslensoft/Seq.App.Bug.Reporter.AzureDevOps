@@ -16,7 +16,7 @@ jobs:
 
     env:
       BUILD_CONFIG: 'Release'
-      SOLUTION: 'Seq.App.BugReporter.AzureDevOps.sln'
+      SOLUTION: 'Seq.App.Bug.Reporter.AzureDevOps.sln'
 
     runs-on: ubuntu-latest
 

@@ -7,8 +7,8 @@
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>A Seq app that creates Azure DevOps bugs without duplication based on issue occurrence frequency.</Description>
     <Authors>Arsslen Idadi</Authors>
-    <Company>Arsslensoft</Company>
-    <PackageId>Seq.App.BugReporter.AzureDevOps</PackageId>
+    <Company></Company>
+    <PackageId>Seq.App.Bug.Reporter.AzureDevOps</PackageId>
     <IsPackable>true</IsPackable>
 	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
@@ -18,6 +18,10 @@
 	  <RepositoryType>git</RepositoryType>
 	  <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	  <Title>Azure DevOps Seq Bug Reporter</Title>
+	  <PackageProjectUrl>https://github.com/Arsslensoft/Seq.App.Bug.Reporter.AzureDevOps</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/Arsslensoft/Seq.App.Bug.Reporter.AzureDevOps</RepositoryUrl>
+	  <PackageTags>Seq;Azure DevOps;App</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
