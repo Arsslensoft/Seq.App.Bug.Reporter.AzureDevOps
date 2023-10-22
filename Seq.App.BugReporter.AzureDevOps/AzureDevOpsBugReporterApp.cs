@@ -4,6 +4,7 @@ using Seq.App.BugReporter.AzureDevOps.AzureDevOps;
 using Seq.App.BugReporter.AzureDevOps.Builders;
 using Seq.App.BugReporter.AzureDevOps.Extensions;
 using Seq.App.BugReporter.AzureDevOps.Formatters;
+using Seq.App.BugReporter.AzureDevOps.Resources;
 using Seq.Apps;
 using Seq.Apps.LogEvents;
 
@@ -28,7 +29,7 @@ public class AzureDevOpsBugReporterApp : AzureDevOpsReporterAppBase, ISubscribeT
                     await IncrementIncidentFrequencyAsync(client, existingWorkItems.First(), evt);
                     break;
                 case null:
-                    throw new ArgumentNullException(nameof(document), "Failed to build bug creation payload");
+                    throw new ArgumentNullException(nameof(document), Strings.FAILED_TO_BUILD_BUG_CREATION_PAYLOAD);
                 default:
                     await client.CreateWorkItemAsync(document, Project);
                     break;
@@ -37,25 +38,25 @@ public class AzureDevOpsBugReporterApp : AzureDevOpsReporterAppBase, ISubscribeT
         catch (AggregateException aex)
         {
             var fex = aex.Flatten();
-            throw new SeqAppException("Error while creating bug in Azure DevOps.", fex);
+            throw new SeqAppException(Strings.BUG_CREATION_ERROR, fex);
         }
         catch (Exception ex)
         {
-            throw new SeqAppException("Error while creating bug in Azure DevOps.", ex);
+            throw new SeqAppException(Strings.BUG_CREATION_ERROR, ex);
         }
     }
 
-     protected async Task<JsonPatchDocument?> CreateBugPayloadAsync(Event<LogEventData> evt, AzureDevOpsClient client,
+    protected async Task<JsonPatchDocument?> CreateBugPayloadAsync(Event<LogEventData> evt, AzureDevOpsClient client,
         List<WorkItemReference> existingWorkItems)
     {
         var builder = new JsonPatchDocumentWorkItemBuilder();
-        var formatter = new ParameterizedSeqStringFormatter(evt);
+        var formatter = new ParameterizedSeqStringFormatter(evt, Log);
 
         var title = formatter.GetTitle(TitleFormat)?.TruncateWithEllipsis(255);
-        if(title == null) throw new ArgumentNullException(nameof(title), "Failed to generate bug title");
+        if (title == null) throw new ArgumentNullException(nameof(title), Strings.FAILED_TO_GENERATE_TITLE);
 
         var description = formatter.GetDescription(Host.BaseUri, DescriptionFormat);
-        if(description == null) throw new ArgumentNullException(nameof(description), "Failed to generate bug description");
+        if (description == null) throw new ArgumentNullException(nameof(description), Strings.FAILED_TO_GENERATE_DESCRIPTION);
 
         var uniqueId = title.GetStringHash();
 
@@ -65,28 +66,29 @@ public class AzureDevOpsBugReporterApp : AzureDevOpsReporterAppBase, ISubscribeT
 
             if (!string.IsNullOrEmpty(IncidentUniqueIdField))
                 properties.Add(IncidentUniqueIdField, uniqueId);
-           
+
             if (!string.IsNullOrEmpty(SeqEventIdField))
                 properties.Add(SeqEventIdField, evt.Id);
 
-            var workItemQueryResult = await client.GetWorkItemByPropertyNameAsync(Project, properties, includeClosed: true);
-            if (workItemQueryResult != null && workItemQueryResult.WorkItems.Count() != 0)
+            var workItemQueryResult = await client.GetWorkItemByPropertyNameAsync(Project, properties, true);
+            if (workItemQueryResult != null && workItemQueryResult.WorkItems.Any())
             {
-                Log.Information("Duplicate DevOps item creation prevented for event id {id} / unique id {uniqueId}", evt.Id, uniqueId);
-               
-                if(!string.IsNullOrEmpty(IncidentFrequencyField))
+                Log.Information(Strings.DUPLICATE_AZURE_DEVOPS_BUG,
+                    evt.Id, uniqueId);
+
+                if (!string.IsNullOrEmpty(IncidentFrequencyField))
                     existingWorkItems.AddRange(workItemQueryResult.WorkItems);
 
                 return null;
             }
         }
-        
+
         if (!string.IsNullOrEmpty(DevOpsMappings))
             builder.SetConstantProperties(DevOpsMappings.ParseKeyValueArray());
 
         builder
             .SetTitle(title)
-            .SetAssignedTo(AssignedTo ?? string.Empty)
+            .SetAssignedTo(AssignedTo)
             .SetAreaPath(AreaPath)
             .SetIterationPath(Iteration)
             .SetEventFrequency(IncidentFrequencyField, 1)

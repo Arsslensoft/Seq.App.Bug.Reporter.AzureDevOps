@@ -77,7 +77,7 @@ public class JsonPatchDocumentWorkItemBuilder
         return this;
     }
 
-    public JsonPatchDocumentWorkItemBuilder SetTags(string tags)
+    public JsonPatchDocumentWorkItemBuilder SetTags(string? tags)
     {
         if (string.IsNullOrEmpty(tags)) return this;
 
@@ -108,7 +108,7 @@ public class JsonPatchDocumentWorkItemBuilder
         return this;
     }
 
-    public JsonPatchDocumentWorkItemBuilder SetAreaPath(string areaPath)
+    public JsonPatchDocumentWorkItemBuilder SetAreaPath(string? areaPath)
     {
         if (string.IsNullOrEmpty(areaPath)) return this;
 
@@ -121,7 +121,7 @@ public class JsonPatchDocumentWorkItemBuilder
         return this;
     }
 
-    public JsonPatchDocumentWorkItemBuilder SetIterationPath(string iterationPath)
+    public JsonPatchDocumentWorkItemBuilder SetIterationPath(string? iterationPath)
     {
         if (string.IsNullOrEmpty(iterationPath)) return this;
 
@@ -134,13 +134,13 @@ public class JsonPatchDocumentWorkItemBuilder
         return this;
     }
 
-    public JsonPatchDocumentWorkItemBuilder SetAssignedTo(string assignedTo)
+    public JsonPatchDocumentWorkItemBuilder SetAssignedTo(string? assignedTo)
     {
         _patchDocument.Add(new JsonPatchOperation
         {
             Operation = Operation.Add,
             Path = "/fields/System.AssignedTo",
-            Value = assignedTo
+            Value = assignedTo ?? string.Empty
         });
         return this;
     }
@@ -167,13 +167,13 @@ public class JsonPatchDocumentWorkItemBuilder
         return this;
     }
 
-    public JsonPatchDocumentWorkItemBuilder SetSeverity(string severityMappings, string logLevel)
+    public JsonPatchDocumentWorkItemBuilder SetSeverity(string? severityMappings, string logLevel)
     {
         if (string.IsNullOrEmpty(severityMappings)) return this;
 
         var mappings = severityMappings.ParseKeyValueArray();
-       
-        if(!mappings.TryGetValue(logLevel, out var severity))
+
+        if (!mappings.TryGetValue(logLevel, out var severity))
             return this;
 
         _patchDocument.Add(new JsonPatchOperation
@@ -196,28 +196,28 @@ public class JsonPatchDocumentWorkItemBuilder
         return this;
     }
 
-    public JsonPatchDocumentWorkItemBuilder SetSeqEventId(string seqEventIdPropertyName, string eventId)
+    public JsonPatchDocumentWorkItemBuilder SetSeqEventId(string? seqEventIdPropertyName, string eventId)
     {
         return SetFieldValue(seqEventIdPropertyName, eventId);
     }
 
-    public JsonPatchDocumentWorkItemBuilder SetUniqueIdentifier(string uniqueIdentifierPropertyName, string uniqueId)
+    public JsonPatchDocumentWorkItemBuilder SetUniqueIdentifier(string? uniqueIdentifierPropertyName, string uniqueId)
     {
         return SetFieldValue(uniqueIdentifierPropertyName, uniqueId);
     }
 
-    public JsonPatchDocumentWorkItemBuilder SetEventFrequency(string eventFrequencyPropertyName, int eventFrequency)
+    public JsonPatchDocumentWorkItemBuilder SetEventFrequency(string? eventFrequencyPropertyName, int eventFrequency)
     {
         return SetFieldValue(eventFrequencyPropertyName, eventFrequency.ToString());
     }
 
 
-    public JsonPatchDocumentWorkItemBuilder SetSeqEventUrl(string seqEventUrlPropertyName, string url)
+    public JsonPatchDocumentWorkItemBuilder SetSeqEventUrl(string? seqEventUrlPropertyName, string url)
     {
         return SetFieldValue(seqEventUrlPropertyName, url);
     }
 
-    public JsonPatchDocumentWorkItemBuilder SetFieldValue(string propertyName, string value)
+    public JsonPatchDocumentWorkItemBuilder SetFieldValue(string? propertyName, string value)
     {
         if (string.IsNullOrEmpty(propertyName)) return this;
 

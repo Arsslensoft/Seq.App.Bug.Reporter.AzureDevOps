@@ -1,9 +1,11 @@
-﻿using System.Collections.Concurrent;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace Seq.App.BugReporter.AzureDevOps.Extensions;
 
+/// <summary>
+/// String extensions.
+/// </summary>
 internal static class StringExtensions
 {
     /// <summary>
@@ -52,12 +54,20 @@ internal static class StringExtensions
     }
 
 
+    /// <summary>
+    /// Gets the SHA256 hash of a string.
+    /// </summary>
+    /// <param name="str">The input string</param>
+    /// <returns>The SHA256 has of the string</returns>
     internal static string GetStringHash(this string str)
     {
-        var crypt = new SHA256Managed();
-        var hash = string.Empty;
-        var crypto = crypt.ComputeHash(Encoding.ASCII.GetBytes(str));
-        foreach (var theByte in crypto) hash += theByte.ToString("x2");
-        return hash;
+        using var sha256 = SHA256.Create();
+        var hash = new StringBuilder();
+        var hashArray = sha256.ComputeHash(Encoding.UTF8.GetBytes(str));
+        foreach (var b in hashArray)
+        {
+            hash.Append(b.ToString("x"));
+        }
+        return hash.ToString();
     }
 }
