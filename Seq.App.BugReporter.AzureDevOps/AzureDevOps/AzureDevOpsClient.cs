@@ -40,7 +40,8 @@ public class AzureDevOpsClient
         return await Client.QueryByWiqlAsync(query);
     }
 
-    public async Task<WorkItemQueryResult?> GetWorkItemByPropertyNameAsync(string project, IEnumerable<KeyValuePair<string, string>> properties, bool includeClosed = false)
+    public async Task<WorkItemQueryResult?> GetWorkItemByPropertyNameAsync(string project,
+        IEnumerable<KeyValuePair<string, string>> properties, bool includeClosed = false)
     {
         var keyValuePairs = properties as KeyValuePair<string, string>[] ?? properties.ToArray();
 
@@ -49,7 +50,7 @@ public class AzureDevOpsClient
         var sb = new StringBuilder();
         sb.Append("Select [State], [Title] From WorkItems Where ");
         sb.Append("(");
-        
+
         var lastProperty = keyValuePairs.Last();
         foreach (var property in keyValuePairs)
         {
@@ -62,11 +63,11 @@ public class AzureDevOpsClient
         sb.Append(")");
         sb.Append($" And [System.TeamProject] = '{project}' ");
 
-        if (includeClosed) 
+        if (includeClosed)
             sb.Append("[System.State] <> 'Closed' And ");
 
         sb.Append("Order By [State] Asc, [Changed Date] Desc");
-        
+
         var query = new Wiql
         {
             Query = sb.ToString()
