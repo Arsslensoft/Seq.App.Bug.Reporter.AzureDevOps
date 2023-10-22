@@ -10,28 +10,32 @@ using Seq.Apps.LogEvents;
 
 namespace Seq.App.BugReporter.AzureDevOps;
 
+/// <summary>
+/// Represents the Azure DevOps bug reporter app.
+/// </summary>
 [SeqApp("Azure DevOps Bug Reporter",
     Description = "A Seq app that reports bugs to Azure DevOps.")]
 public class AzureDevOpsBugReporterApp : AzureDevOpsReporterAppBase, ISubscribeToAsync<LogEventData>
 {
-    public async Task OnAsync(Event<LogEventData> evt)
+    /// <inheritdoc />
+    public async Task OnAsync(Event<LogEventData> logEvent)
     {
-        if (evt.Data.Level != LogEventLevel.Error && evt.Data.Level != LogEventLevel.Fatal)
+        if (logEvent.Data.Level != LogEventLevel.Error && logEvent.Data.Level != LogEventLevel.Fatal)
             return;
         try
         {
             var client = new AzureDevOpsClient(Organization, PersonalAccessToken);
             var existingWorkItems = new List<WorkItemReference>();
-            var document = await CreateBugPayloadAsync(evt, client, existingWorkItems);
+            var document = await CreateBugPayloadAsync(logEvent, client, existingWorkItems);
             switch (document)
             {
                 case null when existingWorkItems.Count == 1 && !string.IsNullOrEmpty(IncidentFrequencyField):
-                    await IncrementIncidentFrequencyAsync(client, existingWorkItems.First(), evt);
+                    await IncrementIncidentFrequencyAsync(client, existingWorkItems.First(), logEvent);
                     break;
                 case null:
                     throw new ArgumentNullException(nameof(document), Strings.FAILED_TO_BUILD_BUG_CREATION_PAYLOAD);
                 default:
-                    await client.CreateWorkItemAsync(document, Project);
+                    await client.CreateBugAsync(document, Project);
                     break;
             }
         }
@@ -46,11 +50,19 @@ public class AzureDevOpsBugReporterApp : AzureDevOpsReporterAppBase, ISubscribeT
         }
     }
 
-    protected async Task<JsonPatchDocument?> CreateBugPayloadAsync(Event<LogEventData> evt, AzureDevOpsClient client,
+    /// <summary>
+    /// Creates the bug payload.
+    /// </summary>
+    /// <param name="logEvent">The log event</param>
+    /// <param name="client">The Azure DevOps client</param>
+    /// <param name="existingWorkItems">The list that contains the existing work items that the client found. This parameter should be initialized to an empty list and it's an output parameter</param>
+    /// <returns>The <see cref="JsonPatchDocument"/> to be used in bug creation</returns>
+    /// <exception cref="ArgumentNullException">Thrown if it failed the mapping of the title or description to their user defined/default formats</exception>
+    protected async Task<JsonPatchDocument?> CreateBugPayloadAsync(Event<LogEventData> logEvent, AzureDevOpsClient client,
         List<WorkItemReference> existingWorkItems)
     {
         var builder = new JsonPatchDocumentWorkItemBuilder();
-        var formatter = new ParameterizedSeqStringFormatter(evt, Log);
+        var formatter = new ParameterizedSeqStringFormatter(logEvent, Log);
 
         var title = formatter.GetTitle(TitleFormat)?.TruncateWithEllipsis(255);
         if (title == null) throw new ArgumentNullException(nameof(title), Strings.FAILED_TO_GENERATE_TITLE);
@@ -68,13 +80,13 @@ public class AzureDevOpsBugReporterApp : AzureDevOpsReporterAppBase, ISubscribeT
                 properties.Add(IncidentUniqueIdField, uniqueId);
 
             if (!string.IsNullOrEmpty(SeqEventIdField))
-                properties.Add(SeqEventIdField, evt.Id);
+                properties.Add(SeqEventIdField, logEvent.Id);
 
             var workItemQueryResult = await client.GetWorkItemByPropertyNameAsync(Project, properties, true);
             if (workItemQueryResult != null && workItemQueryResult.WorkItems.Any())
             {
                 Log.Information(Strings.DUPLICATE_AZURE_DEVOPS_BUG,
-                    evt.Id, uniqueId);
+                    logEvent.Id, uniqueId);
 
                 if (!string.IsNullOrEmpty(IncidentFrequencyField))
                     existingWorkItems.AddRange(workItemQueryResult.WorkItems);
@@ -92,13 +104,13 @@ public class AzureDevOpsBugReporterApp : AzureDevOpsReporterAppBase, ISubscribeT
             .SetAreaPath(AreaPath)
             .SetIterationPath(Iteration)
             .SetEventFrequency(IncidentFrequencyField, 1)
-            .SetSeqEventId(SeqEventIdField, evt.Id)
+            .SetSeqEventId(SeqEventIdField, logEvent.Id)
             .SetSeqEventUrl(SeqEventUrlField, formatter.GetSeqUrl(Host.BaseUri))
             .SetUniqueIdentifier(IncidentUniqueIdField, uniqueId)
             .SetTags(Tags)
             .LinkTo(WorkItemId, Organization, Project)
             .SetDescription(description, DescriptionMappingField)
-            .SetSeverity(SeverityMappings, evt.Data.Level.ToString());
+            .SetSeverity(SeverityMappings, logEvent.Data.Level.ToString());
 
         return builder.Build();
     }

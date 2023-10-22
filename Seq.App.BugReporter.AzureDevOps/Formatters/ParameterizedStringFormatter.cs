@@ -16,13 +16,22 @@ public class ParameterizedSeqStringFormatter
     private readonly Event<LogEventData> _event;
     private readonly ILogger _logger;
 
-
+    /// <summary>
+    /// Creates a new instance of <see cref="ParameterizedSeqStringFormatter"/>.
+    /// </summary>
+    /// <param name="event">The log event</param>
+    /// <param name="logger">The current logger</param>
     public ParameterizedSeqStringFormatter(Event<LogEventData> @event, ILogger logger)
     {
         _event = @event;
         _logger = logger;
     }
 
+    /// <summary>
+    /// Gets the title of the bug.
+    /// </summary>
+    /// <param name="titleTemplate">The user-defined title format</param>
+    /// <returns>The formatted title</returns>
     public string? GetTitle(string? titleTemplate)
     {
         return FormatTemplate(string.IsNullOrEmpty(titleTemplate)
@@ -30,6 +39,12 @@ public class ParameterizedSeqStringFormatter
             : titleTemplate);
     }
 
+    /// <summary>
+    /// Gets the description of the bug.
+    /// </summary>
+    /// <param name="baseUrl">The Seq base url</param>
+    /// <param name="descriptionTemplate">The user-defined description format</param>
+    /// <returns>The formatted description</returns>
     public string? GetDescription(string baseUrl, string? descriptionTemplate)
     {
         return FormatTemplate(string.IsNullOrEmpty(descriptionTemplate)
@@ -37,7 +52,17 @@ public class ParameterizedSeqStringFormatter
             : descriptionTemplate, baseUrl, false);
     }
 
-    public string? FormatTemplate(string template, string? baseUrl = null, bool isMinifiedTemplate = true)
+    /// <summary>
+    /// Gets the Seq url of the event.
+    /// </summary>
+    /// <param name="baseUrl">The Seq base url</param>
+    /// <returns>The Seq url of the log event</returns>
+    public string GetSeqUrl(string baseUrl)
+    {
+        return $"{baseUrl}#/events?filter=@Id%20%3D%20'{_event.Id}'&show=expanded";
+    }
+
+    private string? FormatTemplate(string template, string? baseUrl = null, bool isMinifiedTemplate = true)
     {
         _logger.BindMessageTemplate(template, _event.Data?.Properties?.Select(p => p.Value).ToArray() ?? Array.Empty<object?>(),
             out var boundTemplate, out _);
@@ -99,10 +124,5 @@ public class ParameterizedSeqStringFormatter
                 messageBuilder.Append(string.Format(Strings.UNSUPPORTED_PARAMETER, propertyName));
                 break;
         }
-    }
-
-    public string GetSeqUrl(string baseUrl)
-    {
-        return $"{baseUrl}#/events?filter=@Id%20%3D%20'{_event.Id}'&show=expanded";
     }
 }

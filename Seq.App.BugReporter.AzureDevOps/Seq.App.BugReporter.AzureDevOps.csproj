@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -12,6 +12,22 @@
     <IsPackable>true</IsPackable>
 	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	  <DocumentationFile></DocumentationFile>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <RepositoryType>git</RepositoryType>
+	  <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>9999</WarningLevel>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>9999</WarningLevel>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,6 +53,17 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

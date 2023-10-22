@@ -8,38 +8,76 @@ using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 
 namespace Seq.App.BugReporter.AzureDevOps.AzureDevOps;
 
+/// <summary>
+/// Represents the Azure DevOps client.
+/// </summary>
 public class AzureDevOpsClient
 {
+    private readonly WorkItemTrackingHttpClient _client;
+
+    /// <summary>
+    /// Creates a new instance of <see cref="AzureDevOpsClient"/>.
+    /// </summary>
+    /// <param name="organization">The Azure DevOps organization</param>
+    /// <param name="personalAccessToken">The Azure DevOps personal access token</param>
     public AzureDevOpsClient(string organization, string personalAccessToken)
     {
-        Connection = new VssConnection(new Uri($"https://dev.azure.com/{organization}"),
+        var connection = new VssConnection(new Uri($"https://dev.azure.com/{organization}"),
             new VssBasicCredential(string.Empty, personalAccessToken));
-        Client = Connection.GetClient<WorkItemTrackingHttpClient>();
+        _client = connection.GetClient<WorkItemTrackingHttpClient>();
     }
-
-    public VssConnection Connection { get; set; }
-    public WorkItemTrackingHttpClient Client { get; set; }
-
-    public async Task<WorkItem> CreateWorkItemAsync(JsonPatchDocument patchDocument, string project)
+    
+    /// <summary>
+    /// Creates a bug.
+    /// </summary>
+    /// <param name="patchDocument">The bug creation payload</param>
+    /// <param name="project">The project</param>
+    /// <returns>The created work item.</returns>
+    public Task<WorkItem> CreateBugAsync(JsonPatchDocument patchDocument, string project)
     {
-        return await Client.CreateWorkItemAsync(patchDocument, project, "Bug", false, true);
+        return _client.CreateWorkItemAsync(patchDocument, project, "Bug", false, true);
     }
 
+    /// <summary>
+    /// Gets a work item.
+    /// </summary>
+    /// <param name="project">The project</param>
+    /// <param name="workItemId">The work item id</param>
+    /// <returns>The returned work item</returns>
     public async Task<WorkItem> GetWorkItemAsync(string project, int workItemId)
     {
-        return await Client.GetWorkItemAsync(project, workItemId);
+        return await _client.GetWorkItemAsync(project, workItemId);
     }
 
+    /// <summary>
+    /// Updates a work item.
+    /// </summary>
+    /// <param name="patchDocument">The update payload</param>
+    /// <param name="project">The project</param>
+    /// <param name="workItemId">The work item id</param>
+    /// <returns>The updated work item</returns>
     public async Task<WorkItem> UpdateWorkItemAsync(JsonPatchDocument patchDocument, string project, int workItemId)
     {
-        return await Client.UpdateWorkItemAsync(patchDocument, project, workItemId);
+        return await _client.UpdateWorkItemAsync(patchDocument, project, workItemId);
     }
 
+    /// <summary>
+    /// Gets work items by query.
+    /// </summary>
+    /// <param name="query">The selection query</param>
+    /// <returns>The returned work item references</returns>
     public async Task<WorkItemQueryResult> GetWorkItemsAsync(Wiql query)
     {
-        return await Client.QueryByWiqlAsync(query);
+        return await _client.QueryByWiqlAsync(query);
     }
 
+    /// <summary>
+    /// Gets work items by properties.
+    /// </summary>
+    /// <param name="project">The project</param>
+    /// <param name="properties">The properties to filter work items</param>
+    /// <param name="includeClosed">Indicates whether are closed work items included or not</param>
+    /// <returns>The returned work item references</returns>
     public async Task<WorkItemQueryResult?> GetWorkItemByPropertyNameAsync(string project,
         IEnumerable<KeyValuePair<string, string>> properties, bool includeClosed = false)
     {
