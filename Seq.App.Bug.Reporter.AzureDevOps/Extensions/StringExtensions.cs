@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Seq.App.BugReporter.AzureDevOps.Extensions;
+namespace Seq.App.Bug.Reporter.AzureDevOps.Extensions;
 
 /// <summary>
 /// String extensions.

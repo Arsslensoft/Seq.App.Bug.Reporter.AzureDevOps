@@ -1,14 +1,14 @@
 ﻿using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
-using Seq.App.BugReporter.AzureDevOps.AzureDevOps;
-using Seq.App.BugReporter.AzureDevOps.Builders;
-using Seq.App.BugReporter.AzureDevOps.Extensions;
-using Seq.App.BugReporter.AzureDevOps.Formatters;
-using Seq.App.BugReporter.AzureDevOps.Resources;
+using Seq.App.Bug.Reporter.AzureDevOps.AzureDevOps;
+using Seq.App.Bug.Reporter.AzureDevOps.Builders;
+using Seq.App.Bug.Reporter.AzureDevOps.Extensions;
+using Seq.App.Bug.Reporter.AzureDevOps.Formatters;
+using Seq.App.Bug.Reporter.AzureDevOps.Resources;
 using Seq.Apps;
 using Seq.Apps.LogEvents;
 
-namespace Seq.App.BugReporter.AzureDevOps;
+namespace Seq.App.Bug.Reporter.AzureDevOps;
 
 /// <summary>
 /// Represents the Azure DevOps bug reporter app.

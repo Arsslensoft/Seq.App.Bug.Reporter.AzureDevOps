@@ -1,12 +1,12 @@
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.WebApi.Patch;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
-using Seq.App.BugReporter.AzureDevOps.AzureDevOps;
-using Seq.App.BugReporter.AzureDevOps.Constants;
+using Seq.App.Bug.Reporter.AzureDevOps.AzureDevOps;
+using Seq.App.Bug.Reporter.AzureDevOps.Constants;
 using Seq.Apps;
 using Seq.Apps.LogEvents;
 
-namespace Seq.App.BugReporter.AzureDevOps;
+namespace Seq.App.Bug.Reporter.AzureDevOps;
 
 /// <summary>
 /// Represents a base class for Azure DevOps Seq apps.

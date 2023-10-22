@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.Services.WebApi.Patch;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
-using Seq.App.BugReporter.AzureDevOps.Extensions;
+using Seq.App.Bug.Reporter.AzureDevOps.Extensions;
 
-namespace Seq.App.BugReporter.AzureDevOps.Builders;
+namespace Seq.App.Bug.Reporter.AzureDevOps.Builders;
 
 /// <summary>
 /// Represents the work item builder.

@@ -1,12 +1,12 @@
 ﻿using System.Text;
-using Seq.App.BugReporter.AzureDevOps.Constants;
-using Seq.App.BugReporter.AzureDevOps.Resources;
+using Seq.App.Bug.Reporter.AzureDevOps.Constants;
+using Seq.App.Bug.Reporter.AzureDevOps.Resources;
 using Seq.Apps;
 using Seq.Apps.LogEvents;
 using Serilog;
 using Serilog.Parsing;
 
-namespace Seq.App.BugReporter.AzureDevOps.Formatters;
+namespace Seq.App.Bug.Reporter.AzureDevOps.Formatters;
 
 /// <summary>
 /// Represents a parameterized string formatter for Seq.

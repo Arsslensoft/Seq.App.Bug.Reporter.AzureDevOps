@@ -1,4 +1,4 @@
-namespace Seq.App.BugReporter.AzureDevOps.Constants;
+namespace Seq.App.Bug.Reporter.AzureDevOps.Constants;
 
 /// <summary>
 /// Represents the parameter constants.

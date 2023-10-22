@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 
-namespace Seq.App.BugReporter.AzureDevOps.AzureDevOps;
+namespace Seq.App.Bug.Reporter.AzureDevOps.AzureDevOps;
 
 /// <summary>
 /// Represents the Azure DevOps client.
