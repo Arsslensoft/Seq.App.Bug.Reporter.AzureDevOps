@@ -16,8 +16,6 @@
 	  <DocumentationFile></DocumentationFile>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <RepositoryType>git</RepositoryType>
-	  <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	  <Title>Azure DevOps Seq Bug Reporter</Title>
 	  <PackageProjectUrl>https://github.com/Arsslensoft/Seq.App.Bug.Reporter.AzureDevOps</PackageProjectUrl>
 	  <RepositoryUrl>https://github.com/Arsslensoft/Seq.App.Bug.Reporter.AzureDevOps</RepositoryUrl>
