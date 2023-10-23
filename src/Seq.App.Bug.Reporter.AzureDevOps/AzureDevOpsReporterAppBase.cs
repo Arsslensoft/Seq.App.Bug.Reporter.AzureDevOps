@@ -237,5 +237,15 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
         HelpText = "The Azure DevOps bug state. Example: New")]
     public string? DefaultState { get; set; }
 
+
+    /// <summary>
+    /// Represents the seq host url.
+    /// </summary>
+    [SeqAppSetting(
+        DisplayName = "Host Url Override",
+        IsOptional = true,
+        HelpText = "The Seq Host Url override. Example: https://seq.yourwebsite.com")]
+    public string? HostUrlOverride { get; set; }
+
     #endregion
 }

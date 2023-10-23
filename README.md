@@ -88,6 +88,9 @@ Maps Seq Log level to Azure DevOps bug severity. Format: LogLevel:AzureDevOpsSev
 #### Default Bug State
 The Azure DevOps bug state. Example: New.
 
+#### Host Url Override
+The Seq Host Url override. Example: https://seq.yourwebsite.com/
+
 ## Authors
 * Arsslen Idadi [@Arsslensoft](https://github.com/Arsslensoft)
 

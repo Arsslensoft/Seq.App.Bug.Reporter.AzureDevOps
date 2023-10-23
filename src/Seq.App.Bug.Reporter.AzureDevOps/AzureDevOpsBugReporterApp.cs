@@ -67,7 +67,7 @@ public class AzureDevOpsBugReporterApp : AzureDevOpsReporterAppBase, ISubscribeT
         var title = formatter.GetTitle(TitleFormat)?.TruncateWithEllipsis(255);
         if (title == null) throw new ArgumentNullException(nameof(title), Strings.FAILED_TO_GENERATE_TITLE);
 
-        var description = formatter.GetDescription(Host.BaseUri, DescriptionFormat);
+        var description = formatter.GetDescription(HostUrlOverride ?? Host.BaseUri, DescriptionFormat);
         if (description == null) throw new ArgumentNullException(nameof(description), Strings.FAILED_TO_GENERATE_DESCRIPTION);
 
         var uniqueId = title.GetStringHash();
@@ -105,7 +105,7 @@ public class AzureDevOpsBugReporterApp : AzureDevOpsReporterAppBase, ISubscribeT
             .SetIterationPath(Iteration)
             .SetEventFrequency(IncidentFrequencyField, 1)
             .SetSeqEventId(SeqEventIdField, logEvent.Id)
-            .SetSeqEventUrl(SeqEventUrlField, formatter.GetSeqUrl(Host.BaseUri))
+            .SetSeqEventUrl(SeqEventUrlField, formatter.GetSeqUrl(HostUrlOverride ?? Host.BaseUri))
             .SetUniqueIdentifier(IncidentUniqueIdField, uniqueId)
             .SetTags(Tags)
             .LinkTo(WorkItemId, Organization, Project)

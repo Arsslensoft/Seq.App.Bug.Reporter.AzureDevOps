@@ -45,7 +45,7 @@ public class ParameterizedSeqStringFormatter
     /// <param name="baseUrl">The Seq base url</param>
     /// <param name="descriptionTemplate">The user-defined description format</param>
     /// <returns>The formatted description</returns>
-    public string? GetDescription(string baseUrl, string? descriptionTemplate)
+    public string? GetDescription(string? baseUrl, string? descriptionTemplate)
     {
         return FormatTemplate(string.IsNullOrEmpty(descriptionTemplate)
             ? Strings.DEFAULT_DESCRIPTION
