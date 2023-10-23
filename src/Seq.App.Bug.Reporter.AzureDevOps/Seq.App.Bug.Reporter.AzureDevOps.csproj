@@ -18,7 +18,7 @@
 	  <PackageTags>Seq;Azure DevOps;App;seq-app</PackageTags>
 	  <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 	  <RepositoryUrl>https://github.com/datalust/seq-app-mail</RepositoryUrl>
-	  <Version>1.0.10</Version>
+	  <Version>1.0.12</Version>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 	  <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
@@ -27,18 +27,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <WarningLevel>9999</WarningLevel>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <WarningsNotAsErrors>NU5119</WarningsNotAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <WarningLevel>9999</WarningLevel>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <WarningsNotAsErrors>NU5119</WarningsNotAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.153.0" />
-	  <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.153.0" />
+	  <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.205.1" />
+	  <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.205.1" />
     <PackageReference Include="Seq.Apps" Version="2023.4.0" />
   </ItemGroup>
 
@@ -66,15 +64,6 @@
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>
+	<None Include="./obj/publish/**/*" Exclude="./obj/publish/$(MSBuildProjectName).dll;./obj/publish/$(MSBuildProjectName).xml;./obj/publish/Seq.Apps.dll;./obj/publish/Serilog.dll" Pack="true" PackagePath="lib/$(TargetFramework)" />
 	</ItemGroup>
-
-	<Target Name="IncludeAllFilesInTargetDir" AfterTargets="Build">
-		<ItemGroup>
-			<None Include="$(TargetDir)\**">
-				<Pack>true</Pack>
-				<PackagePath>tools</PackagePath>
-				<Exclude>$(TargetDir)\*.nupkg</Exclude>
-			</None>
-		</ItemGroup>
-	</Target>
 </Project>
