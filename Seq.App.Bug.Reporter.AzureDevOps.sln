@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seq.App.Bug.Reporter.AzureDevOps", "Seq.App.Bug.Reporter.AzureDevOps\Seq.App.Bug.Reporter.AzureDevOps.csproj", "{9258291E-9D53-4367-B3D7-07CE755ABDCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seq.App.Bug.Reporter.AzureDevOps", "src\Seq.App.Bug.Reporter.AzureDevOps\Seq.App.Bug.Reporter.AzureDevOps.csproj", "{9258291E-9D53-4367-B3D7-07CE755ABDCA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E7B0D007-5AB5-4BB4-88B0-55545106FA27}"
 	ProjectSection(SolutionItems) = preProject

@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+	  <TargetFramework>netstandard2.1</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <LangVersion>11</LangVersion>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>A Seq app that creates Azure DevOps bugs without duplication based on issue occurrence frequency.</Description>
     <Authors>Arsslen Idadi</Authors>
@@ -15,22 +16,29 @@
 	  <RepositoryType>git</RepositoryType>
 	  <Title>Azure DevOps Seq Bug Reporter</Title>
 	  <PackageTags>Seq;Azure DevOps;App;seq-app</PackageTags>
-	  <Version>1.0.3</Version>
+	  <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+	  <RepositoryUrl>https://github.com/datalust/seq-app-mail</RepositoryUrl>
+	  <Version>1.0.10</Version>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+	  <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <WarningLevel>9999</WarningLevel>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>NU5119</WarningsNotAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <WarningLevel>9999</WarningLevel>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>NU5119</WarningsNotAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.205.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.205.1" />
+	  <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.153.0" />
+	  <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.153.0" />
     <PackageReference Include="Seq.Apps" Version="2023.4.0" />
   </ItemGroup>
 
@@ -53,4 +61,20 @@
     <Folder Include="Properties\" />
   </ItemGroup>
 
+	<ItemGroup>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<Target Name="IncludeAllFilesInTargetDir" AfterTargets="Build">
+		<ItemGroup>
+			<None Include="$(TargetDir)\**">
+				<Pack>true</Pack>
+				<PackagePath>tools</PackagePath>
+				<Exclude>$(TargetDir)\*.nupkg</Exclude>
+			</None>
+		</ItemGroup>
+	</Target>
 </Project>

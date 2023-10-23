@@ -14,6 +14,17 @@ namespace Seq.App.Bug.Reporter.AzureDevOps;
 public abstract class AzureDevOpsReporterAppBase : SeqApp
 {
     /// <summary>
+    /// Creates a new instance of <see cref="AzureDevOpsReporterAppBase"/>.
+    /// </summary>
+    protected AzureDevOpsReporterAppBase()
+    {
+        Organization = string.Empty;
+        Project = string.Empty;
+        PersonalAccessToken = string.Empty;
+        DescriptionMappingField = string.Empty;
+    }
+
+    /// <summary>
     /// Increments the incident frequency of an existing bug.
     /// </summary>
     /// <param name="client">The Azure DevOps client</param>
@@ -57,7 +68,7 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
     [SeqAppSetting(DisplayName = "Azure DevOps Organization",
         HelpText =
             "The organization name can be found within the base url of your Azure DevOps url. (Example: https://dev.azure.com/{your organization}/).")]
-    public required string Organization { get; set; }
+    public string Organization { get; set; }
 
     /// <summary>
     /// Represents the project name can be found within the base url of your Azure DevOps project url.
@@ -66,7 +77,7 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
     [SeqAppSetting(DisplayName = "Project",
         HelpText =
             "The project name can be found within the base url of your Azure DevOps project url. (Example: https://dev.azure.com/{your organization}/{your project}).")]
-    public required string Project { get; set; }
+    public string Project { get; set; }
 
     /// <summary>
     /// Represents the personal access token of your Azure DevOps account.
@@ -74,7 +85,7 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
     /// </summary>
     [SeqAppSetting(DisplayName = "Azure DevOps Personal Access Token",
         HelpText = "Azure DevOps Personal Access Token (please configure your token to WorkItems/Read & Write).")]
-    public required string PersonalAccessToken { get; set; }
+    public string PersonalAccessToken { get; set; }
 
     /// <summary>
     /// Represents the description mapping field.
@@ -85,7 +96,7 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
         IsOptional = false,
         HelpText =
             "Description DevOps Mapping Field. If you're using CMMI use Microsoft.VSTS.CMMI.Symptom. If you're using Scrum you should use Microsoft.VSTS.TCM.ReproSteps.")]
-    public required string DescriptionMappingField { get; set; }
+    public string DescriptionMappingField { get; set; }
 
     /// <summary>
     /// Represents the comma separated list of bug tags to apply to the created bug in Azure DevOps.
