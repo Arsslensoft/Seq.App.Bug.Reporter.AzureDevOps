@@ -1,27 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFramework>netstandard2.1</TargetFramework>
+	<TargetFramework>netstandard2.1</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	  <LangVersion>11</LangVersion>
+	<LangVersion>11</LangVersion>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>A Seq app that creates Azure DevOps bugs without duplication based on issue occurrence frequency.</Description>
+    <Description>A Seq app that creates Azure DevOps bugs without duplication and keeps track of the issue frequency.</Description>
     <Authors>Arsslen Idadi</Authors>
     <PackageId>Seq.App.Bug.Reporter.AzureDevOps</PackageId>
     <IsPackable>true</IsPackable>
-	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
-	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
-	  <RepositoryType>git</RepositoryType>
-	  <Title>Azure DevOps Seq Bug Reporter</Title>
-	  <PackageTags>Seq;Azure DevOps;App;seq-app</PackageTags>
-	  <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-	  <RepositoryUrl>https://github.com/datalust/seq-app-mail</RepositoryUrl>
-	  <Version>1.0.12</Version>
-	  <PackageReadmeFile>README.md</PackageReadmeFile>
-	  <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-	  <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<RepositoryType>git</RepositoryType>
+	<Title>Azure DevOps Seq Bug Reporter</Title>
+	<PackageTags>Seq;Azure DevOps;App;seq-app</PackageTags>
+	<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+	<RepositoryUrl>https://github.com/Arsslensoft/Seq.App.Bug.Reporter.AzureDevOps</RepositoryUrl>
+	<Version>1.0.15</Version>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+	<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

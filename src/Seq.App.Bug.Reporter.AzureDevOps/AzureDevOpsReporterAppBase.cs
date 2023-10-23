@@ -139,7 +139,7 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
     /// Represents the Azure DevOps custom field to store Seq Event Id.
     /// </summary>
     [SeqAppSetting(
-        DisplayName = "Seq Event Id custom Azure DevOps field",
+        DisplayName = "Seq Event Id",
         IsOptional = true,
         HelpText =
             "Azure DevOps custom field to store Seq Event Id.")]
@@ -149,7 +149,7 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
     /// Represents the Azure DevOps custom field to store Seq Event Url.
     /// </summary>
     [SeqAppSetting(
-        DisplayName = "Seq Event Url custom Azure DevOps field",
+        DisplayName = "Seq Event Url",
         IsOptional = true,
         HelpText =
             "Azure DevOps custom field to store Seq Event Url.")]
@@ -159,7 +159,7 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
     /// Represents the Azure DevOps custom field to store the number of times this bug occurred and been logged in Seq.
     /// </summary>
     [SeqAppSetting(
-        DisplayName = "Seq Event Incidence Count custom Azure DevOps field",
+        DisplayName = "Seq Event Incidence Count",
         IsOptional = true,
         HelpText =
             "Azure DevOps custom field to store the number of times this bug occurred and been logged in Seq.")]
@@ -169,7 +169,7 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
     /// Represents the Azure DevOps custom field to store the unique id of the bug.
     /// </summary>
     [SeqAppSetting(
-        DisplayName = "Unique Incident Id custom Azure DevOps field",
+        DisplayName = "Unique Incident Id",
         IsOptional = true,
         HelpText =
             "Azure DevOps custom field to store a unique incident id to prevent the creation of multiple bugs for the same incident, the unique id is a SHA-256 hash of the bug title.")]
@@ -179,17 +179,17 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
     /// Represents the title format of the bug.
     /// </summary>
     [SeqAppSetting(
-        DisplayName = "Bug title format",
+        DisplayName = "Bug Title Format",
         IsOptional = true,
         HelpText =
-            $"Provides the title format of the bug. List of parameters that can be used are ({ParameterConstants.EventLogLevel}, {ParameterConstants.EventMessage}, {ParameterConstants.EventId}, {ParameterConstants.EventTimestamp}), you can also use Seq event properties). If left empty, the bug title will be '[SEQ Bug Reporter/{{EventLogLevel}}] - {{EventMessage}}'.")]
+            $"Provides the title format of the bug. List of parameters that can be used are ({ParameterConstants.EventLogLevel}, {ParameterConstants.EventMessage}, {ParameterConstants.EventId}, {ParameterConstants.EventTimestamp}), you can also use Seq event properties). If left empty, the bug title will be '[SEQ Bug Reporter/{{{ParameterConstants.EventLogLevel}}}] - {{{ParameterConstants.EventMessage}}}'.")]
     public string? TitleFormat { get; set; }
 
     /// <summary>
     /// Represents the description format of the bug.
     /// </summary>
     [SeqAppSetting(
-        DisplayName = "Bug description format",
+        DisplayName = "Bug Description Format",
         IsOptional = true,
         HelpText =
             $"Provides the description format of the bug. List of parameters that can be used are ({ParameterConstants.EventLogLevel}, {ParameterConstants.EventMessage}, {ParameterConstants.EventUrl}, {ParameterConstants.EventId}, {ParameterConstants.EventTimestamp}, {ParameterConstants.EventException}, {ParameterConstants.EventProperties}), you can also use Seq event properties).")]
@@ -211,11 +211,9 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
     /// Example: Priority:2,Triage:Level 1
     /// </summary>
     [SeqAppSetting(
-        DisplayName = "Azure DevOps props mappings",
+        DisplayName = "Azure DevOps Props Mappings",
         IsOptional = true,
-        HelpText = "Maps Azure DevOps properties to constant values. Format: AzureDevOpsProperty:ConstValue " +
-                   "Separated by Commas. " +
-                   "Example: Priority:2,Triage:Level 1")]
+        HelpText = "Maps Azure DevOps properties to constant values. Format: AzureDevOpsProperty:ConstValue, Separated by Commas. Example: Priority:2,Triage:Level 1")]
     public string? DevOpsMappings { get; set; }
 
     /// <summary>
@@ -224,11 +222,9 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
     /// Example: Error:2 - High,Fatal:1 - Critical
     /// </summary>
     [SeqAppSetting(
-        DisplayName = "Azure DevOps severity mappings",
+        DisplayName = "Azure DevOps Severity Mappings",
         IsOptional = true,
-        HelpText = "Maps Seq Log level to Azure DevOps bug severity. Format: LogLevel:AzureDevOpsSeverity " +
-                   "Separated by Commas. " +
-                   "Example: Error:2 - High,Fatal:1 - Critical")]
+        HelpText = "Maps Seq Log level to Azure DevOps bug severity. Format: LogLevel:AzureDevOpsSeverity, Separated by Commas. Example: Error:2 - High,Fatal:1 - Critical")]
     public string? SeverityMappings { get; set; }
 
     #endregion

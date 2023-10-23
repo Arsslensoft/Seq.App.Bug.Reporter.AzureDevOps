@@ -102,7 +102,7 @@ public class AzureDevOpsClient
         sb.Append($" And [System.TeamProject] = '{project}' ");
 
         if (includeClosed)
-            sb.Append("[System.State] <> 'Closed' And ");
+            sb.Append("And [System.State] <> 'Closed' ");
 
         sb.Append("Order By [State] Asc, [Changed Date] Desc");
 

@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DEFAULT_DESCRIPTION" xml:space="preserve">
-    <value>&lt;strong&gt;Event Id:&lt;/strong&gt; {EventId}&lt;br/&gt;");
-&lt;strong&gt;Level:&lt;/strong&gt; {EventLogLevel}&lt;br/&gt;");
-&lt;strong&gt;Timestamp:&lt;/strong&gt; {EventTimestamp}&lt;br/&gt;");
-&lt;strong&gt;Event Url:&lt;/strong&gt; &lt;a href=\"{EventUrl}\" target=\"_blank\"&gt;Seq event details&lt;/a&gt;&lt;br/&gt;");
-{EventProperties}&lt;br /&gt;");
-&lt;strong&gt;Message:&lt;/strong&gt; {EventMessage}&lt;br/&gt;");
-{EventException}&lt;br /&gt;");</value>
+    <value>&lt;strong&gt;Event Id:&lt;/strong&gt; {EventId}&lt;br/&gt;
+&lt;strong&gt;Level:&lt;/strong&gt; {EventLogLevel}&lt;br/&gt;
+&lt;strong&gt;Timestamp:&lt;/strong&gt; {EventTimestamp}&lt;br/&gt;
+&lt;strong&gt;Event Url:&lt;/strong&gt; &lt;a href="{EventUrl}" target="_blank"&gt;Seq event details&lt;/a&gt;&lt;br/&gt;
+{EventProperties}&lt;br /&gt;
+&lt;strong&gt;Message:&lt;/strong&gt; {EventMessage}&lt;br/&gt;
+{EventException}&lt;br /&gt;</value>
   </data>
   <data name="DEFAULT_TITLE" xml:space="preserve">
     <value>[SEQ Bug Reporter/{EventLogLevel}] - {EventMessage}</value>

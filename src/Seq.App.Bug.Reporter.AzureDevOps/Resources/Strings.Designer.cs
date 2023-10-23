@@ -70,13 +70,13 @@ namespace Seq.App.Bug.Reporter.AzureDevOps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;strong&gt;Event Id:&lt;/strong&gt; {EventId}&lt;br/&gt;&quot;);
-        ///&lt;strong&gt;Level:&lt;/strong&gt; {EventLogLevel}&lt;br/&gt;&quot;);
-        ///&lt;strong&gt;Timestamp:&lt;/strong&gt; {EventTimestamp}&lt;br/&gt;&quot;);
-        ///&lt;strong&gt;Event Url:&lt;/strong&gt; &lt;a href=\&quot;{EventUrl}\&quot; target=\&quot;_blank\&quot;&gt;Seq event details&lt;/a&gt;&lt;br/&gt;&quot;);
-        ///{EventProperties}&lt;br /&gt;&quot;);
-        ///&lt;strong&gt;Message:&lt;/strong&gt; {EventMessage}&lt;br/&gt;&quot;);
-        ///{EventException}&lt;br /&gt;&quot;);.
+        ///   Looks up a localized string similar to &lt;strong&gt;Event Id:&lt;/strong&gt; {EventId}&lt;br/&gt;
+        ///&lt;strong&gt;Level:&lt;/strong&gt; {EventLogLevel}&lt;br/&gt;
+        ///&lt;strong&gt;Timestamp:&lt;/strong&gt; {EventTimestamp}&lt;br/&gt;
+        ///&lt;strong&gt;Event Url:&lt;/strong&gt; &lt;a href=&quot;{EventUrl}&quot; target=&quot;_blank&quot;&gt;Seq event details&lt;/a&gt;&lt;br/&gt;
+        ///{EventProperties}&lt;br /&gt;
+        ///&lt;strong&gt;Message:&lt;/strong&gt; {EventMessage}&lt;br/&gt;
+        ///{EventException}&lt;br /&gt;.
         /// </summary>
         internal static string DEFAULT_DESCRIPTION {
             get {
