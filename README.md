@@ -85,6 +85,9 @@ Maps Azure DevOps properties to constant values. Format: AzureDevOpsProperty:Con
 #### Azure DevOps Severity Mappings
 Maps Seq Log level to Azure DevOps bug severity. Format: LogLevel:AzureDevOpsSeverity, Separated by Commas. Example: Error:2 - High,Fatal:1 - Critical
 
+#### Default Bug State
+The Azure DevOps bug state. Example: New.
+
 ## Authors
 * Arsslen Idadi [@Arsslensoft](https://github.com/Arsslensoft)
 

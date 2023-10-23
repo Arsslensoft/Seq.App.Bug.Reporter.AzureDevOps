@@ -236,6 +236,24 @@ public class JsonPatchDocumentWorkItemBuilder
     }
 
     /// <summary>
+    /// Sets the Bug state.
+    /// </summary>
+    /// <param name="state">The bug state</param>
+    /// <returns>The current builder</returns>
+    public JsonPatchDocumentWorkItemBuilder SetState(string? state)
+    {
+        if (string.IsNullOrEmpty(state)) return this;
+
+        _patchDocument.Add(new JsonPatchOperation
+        {
+            Operation = Operation.Add,
+            Path = "/fields/System.State",
+            Value = state
+        });
+        return this;
+    }
+
+    /// <summary>
     /// Builds the <see cref="JsonPatchDocument"/>.
     /// </summary>
     /// <returns>The final document</returns>

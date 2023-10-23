@@ -110,7 +110,8 @@ public class AzureDevOpsBugReporterApp : AzureDevOpsReporterAppBase, ISubscribeT
             .SetTags(Tags)
             .LinkTo(WorkItemId, Organization, Project)
             .SetDescription(description, DescriptionMappingField)
-            .SetSeverity(SeverityMappings, logEvent.Data.Level.ToString());
+            .SetSeverity(SeverityMappings, logEvent.Data.Level.ToString())
+            .SetState(DefaultState);
 
         return builder.Build();
     }

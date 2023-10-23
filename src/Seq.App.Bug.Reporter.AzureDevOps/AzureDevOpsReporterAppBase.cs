@@ -227,5 +227,15 @@ public abstract class AzureDevOpsReporterAppBase : SeqApp
         HelpText = "Maps Seq Log level to Azure DevOps bug severity. Format: LogLevel:AzureDevOpsSeverity, Separated by Commas. Example: Error:2 - High,Fatal:1 - Critical")]
     public string? SeverityMappings { get; set; }
 
+
+    /// <summary>
+    /// Represents the default Azure DevOps bug state.
+    /// </summary>
+    [SeqAppSetting(
+        DisplayName = "Default Bug State",
+        IsOptional = true,
+        HelpText = "The Azure DevOps bug state. Example: New")]
+    public string? DefaultState { get; set; }
+
     #endregion
 }
