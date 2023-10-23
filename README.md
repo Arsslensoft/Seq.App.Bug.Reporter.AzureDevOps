@@ -1,6 +1,10 @@
 # Seq App For Azure DevOps Bug Reporting
 A Seq App that reports bugs to Azure DevOps and keeps track of issue incidence frequency.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/3f58wifcr6f73s56?svg=true)](https://ci.appveyor.com/project/Arsslensoft/seq-app-bug-reporter-azuredevops)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Seq.App.Bug.Reporter.AzureDevOps.svg)](https://www.nuget.org/packages/Seq.App.Bug.Reporter.AzureDevOps/)
+[![NuGet Version](https://img.shields.io/nuget/v/Seq.App.Bug.Reporter.AzureDevOps.svg)](https://www.nuget.org/packages/Seq.App.Bug.Reporter.AzureDevOps/)
+
 ## Requirements
 Seq 2023.4 or later.
 
