@@ -87,4 +87,4 @@ Maps Seq Log level to Azure DevOps bug severity. Format: LogLevel:AzureDevOpsSev
 ## Credits
 The Datalust team for the Seq App template [@datalust](https://github.com/datalust/seq-app-mail)
 
-The project was inspired by [@xantari](https://github.com/xantari/Seq.App.Azure.DevOps) which was authored by Matt Olson [@xantari](https://github.com/xantari) and Christopher Baker [@delubear](https://github.com/Delubear).
+The project was inspired by [@Seq.App.Azure.DevOps](https://github.com/xantari/Seq.App.Azure.DevOps) which was authored by Matt Olson [@xantari](https://github.com/xantari) and Christopher Baker [@delubear](https://github.com/Delubear).
