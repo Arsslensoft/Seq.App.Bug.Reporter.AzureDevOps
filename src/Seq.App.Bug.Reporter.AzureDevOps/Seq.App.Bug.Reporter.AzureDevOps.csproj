@@ -18,7 +18,7 @@
 	<PackageTags>Seq;Azure DevOps;App;seq-app</PackageTags>
 	<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 	<RepositoryUrl>https://github.com/Arsslensoft/Seq.App.Bug.Reporter.AzureDevOps</RepositoryUrl>
-	<Version>1.0.15</Version>
+	<Version>1.0.16</Version>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 	<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
